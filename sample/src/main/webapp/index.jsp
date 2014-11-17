@@ -59,7 +59,7 @@
                                     <td colspan="2"><h5>Principal's SAML attributes</h5></td>
                                 </tr>
                                 <c:forEach var="attribute" items="${credential.attributes}">
-                                    <tr>
+                                    <tr id="<c:out value='${attribute.name}'/>">
                                         <td width="200">
                                             <strong><c:out value="${attribute.name}"/></strong><c:if test="${not empty attribute.friendlyName}"> (<c:out value="${attribute.friendlyName}"/>)</c:if>
                                         </td>
