@@ -126,16 +126,24 @@
     <bean id="metadata" class="org.springframework.security.saml.metadata.CachingMetadataManager">
         <constructor-arg>
             <list>
-                <bean class="org.opensaml.saml2.metadata.provider.HTTPMetadataProvider">
-                    <!-- URL containing the metadata -->
+                <bean class="org.springframework.security.saml.metadata.ExtendedMetadataDelegate">
                     <constructor-arg>
-                        <value type="java.lang.String">http://itest.onegini.me:8989/saml/metadata</value>
+                        <bean class="org.opensaml.saml2.metadata.provider.ResourceBackedMetadataProvider">
+                            <constructor-arg>
+                                <bean class="java.util.Timer"/>
+                            </constructor-arg>
+                            <constructor-arg>
+                                <bean class="org.opensaml.util.resource.ClasspathResource">
+                                    <constructor-arg value="/metadata/itest.onegini.me.xml"/>
+                                </bean>
+                            </constructor-arg>
+                            <property name="parserPool" ref="parserPool"/>
+                        </bean>
                     </constructor-arg>
-                    <!-- Timeout for metadata loading in ms -->
                     <constructor-arg>
-                        <value type="int">15000</value>
+                        <bean class="org.springframework.security.saml.metadata.ExtendedMetadata">
+                        </bean>
                     </constructor-arg>
-                    <property name="parserPool" ref="parserPool"/>
                 </bean>
             </list>
         </constructor-arg>
