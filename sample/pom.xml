@@ -45,18 +45,28 @@
     <system>jira</system>
     <url>http://jira.springsource.org/browse/SES</url>
   </issueManagement>
+
   <scm>
     <connection>scm:git:https://github.com/Innovation-District/spring-security-saml.git</connection>
     <developerConnection>scm:git:git@github.com:Innovation-District/spring-security-saml.git</developerConnection>
     <url>scm:git:git@github.com:Innovation-District/spring-security-saml.git</url>
   </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>onegini-public-artifacts</id>
+      <name>Onegini Nexus Maven repository</name>
+      <url>https://buildserver.onegini.com/nexus/content/repositories/public-artifacts</url>
+    </repository>
+  </distributionManagement>
+
   <repositories>
     <repository>
-      <id>innovation-district-nexus</id>
+      <id>onegini-public-artifacts</id>
       <name>Innovation District Nexus Maven repository for third party dependencies</name>
       <url>https://buildserver.onegini.com/nexus/content/groups/public</url>
       <snapshots>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
       </snapshots>
       <releases>
         <enabled>true</enabled>
