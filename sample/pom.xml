@@ -4,7 +4,8 @@
   <groupId>com.onegini.saml</groupId>
   <artifactId>spring-security-saml2-sample</artifactId>
   <packaging>war</packaging>
-  <version>4</version>
+  <version>1-SNAPSHOT</version>
+
   <name>Spring Security SAML v2 sample webapp</name>
   <description>Spring Security SAML v2 sample webapp</description>
   <url>https://github.com/Innovation-District/spring-security-saml</url>
