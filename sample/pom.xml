@@ -54,15 +54,15 @@
 
   <distributionManagement>
     <repository>
-      <id>onegini-public-artifacts</id>
-      <name>Onegini Nexus Maven repository</name>
-      <url>https://buildserver.onegini.com/nexus/content/repositories/public-artifacts</url>
+      <id>innovation-district-nexus</id>
+      <name>Innovation District Nexus Maven repository for third party dependencies</name>
+      <url>https://buildserver.onegini.com/nexus/content/groups/public</url>
     </repository>
   </distributionManagement>
 
   <repositories>
     <repository>
-      <id>onegini-public-artifacts</id>
+      <id>innovation-district-nexus</id>
       <name>Innovation District Nexus Maven repository for third party dependencies</name>
       <url>https://buildserver.onegini.com/nexus/content/groups/public</url>
       <snapshots>
