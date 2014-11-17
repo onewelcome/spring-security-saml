@@ -4,7 +4,7 @@
   <groupId>com.onegini.saml</groupId>
   <artifactId>spring-security-saml2-sample</artifactId>
   <packaging>war</packaging>
-  <version>5-SNAPSHOT</version>
+  <version>5</version>
 
   <name>Spring Security SAML v2 sample webapp</name>
   <description>Spring Security SAML v2 sample webapp</description>
@@ -61,7 +61,7 @@
     <connection>scm:git:https://github.com/Innovation-District/spring-security-saml.git</connection>
     <developerConnection>scm:git:git@github.com:Innovation-District/spring-security-saml.git</developerConnection>
     <url>scm:git:git@github.com:Innovation-District/spring-security-saml.git</url>
-    <tag>spring-security-saml2-sample-4</tag>
+    <tag>spring-security-saml2-sample-5</tag>
   </scm>
 
   <repositories>
