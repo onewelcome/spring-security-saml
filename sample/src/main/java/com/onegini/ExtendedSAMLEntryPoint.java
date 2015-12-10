@@ -22,13 +22,13 @@ public class ExtendedSAMLEntryPoint extends SAMLEntryPoint {
 
   private void setAuthContextIfPresentInRequest(final HttpServletRequestAdapter inboundMessageTransport, final WebSSOProfileOptions profileOptions) {
     final List<String> authnContexts = inboundMessageTransport.getParameterValues("authnContexts");
-    if(!authnContexts.isEmpty()){
+    if (!authnContexts.isEmpty()) {
       profileOptions.setAuthnContexts(authnContexts);
     }
   }
 
   private void setPassiveIfPresentInRequest(final HttpServletRequestAdapter inboundMessageTransport, final WebSSOProfileOptions profileOptions) {
-    if ("true".equalsIgnoreCase(inboundMessageTransport.getParameterValue("passive"))) {
+    if (Boolean.parseBoolean(inboundMessageTransport.getParameterValue("passive"))) {
       profileOptions.setPassive(true);
     }
   }
