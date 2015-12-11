@@ -14,10 +14,45 @@
  */
 package org.springframework.security.saml.websso;
 
+import static org.springframework.security.saml.util.SAMLUtil.isDateTimeSkewValid;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.saml2.core.*;
+import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.Attribute;
+import org.opensaml.saml2.core.AttributeStatement;
+import org.opensaml.saml2.core.Audience;
+import org.opensaml.saml2.core.AudienceRestriction;
+import org.opensaml.saml2.core.AuthnContext;
+import org.opensaml.saml2.core.AuthnContextClassRef;
+import org.opensaml.saml2.core.AuthnContextComparisonTypeEnumeration;
+import org.opensaml.saml2.core.AuthnContextDeclRef;
+import org.opensaml.saml2.core.AuthnRequest;
+import org.opensaml.saml2.core.AuthnStatement;
+import org.opensaml.saml2.core.Condition;
+import org.opensaml.saml2.core.Conditions;
+import org.opensaml.saml2.core.EncryptedAssertion;
+import org.opensaml.saml2.core.EncryptedAttribute;
+import org.opensaml.saml2.core.Issuer;
+import org.opensaml.saml2.core.NameID;
+import org.opensaml.saml2.core.OneTimeUse;
+import org.opensaml.saml2.core.ProxyRestriction;
+import org.opensaml.saml2.core.RequestedAuthnContext;
+import org.opensaml.saml2.core.Response;
+import org.opensaml.saml2.core.Status;
+import org.opensaml.saml2.core.StatusCode;
+import org.opensaml.saml2.core.StatusMessage;
+import org.opensaml.saml2.core.Subject;
+import org.opensaml.saml2.core.SubjectConfirmation;
+import org.opensaml.saml2.core.SubjectConfirmationData;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
 import org.opensaml.xml.XMLObject;
@@ -34,14 +69,6 @@ import org.springframework.security.saml.metadata.MetadataManager;
 import org.springframework.security.saml.processor.SAMLProcessor;
 import org.springframework.security.saml.storage.SAMLMessageStorage;
 import org.springframework.util.Assert;
-
-import javax.xml.namespace.QName;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import static org.springframework.security.saml.util.SAMLUtil.isDateTimeSkewValid;
 
 /**
  * Class is able to process Response objects returned from the IDP after SP initialized SSO or unsolicited
@@ -103,14 +130,22 @@ public class WebSSOProfileConsumerImpl extends AbstractProfileBase implements We
         Response response = (Response) message;
 
         // Verify status
-        String statusCode = response.getStatus().getStatusCode().getValue();
+        final Status status = response.getStatus();
+        final StatusCode topLevelStatusCode = status.getStatusCode();
+        String statusCode = topLevelStatusCode.getValue();
         if (!StatusCode.SUCCESS_URI.equals(statusCode)) {
-            StatusMessage statusMessage = response.getStatus().getStatusMessage();
-            String statusMessageText = null;
-            if (statusMessage != null) {
-                statusMessageText = statusMessage.getMessage();
-            }
-            throw new SAMLException("Response has invalid status code " + statusCode + ", status message is " + statusMessageText);
+          final StatusCode secondLevelStatusCode = topLevelStatusCode.getStatusCode();
+          String secondLevelStatusCodeValue = null;
+          if (secondLevelStatusCode != null) {
+            secondLevelStatusCodeValue = secondLevelStatusCode.getValue();
+          }
+          StatusMessage statusMessage = status.getStatusMessage();
+          String statusMessageText = null;
+          if (statusMessage != null) {
+            statusMessageText = statusMessage.getMessage();
+          }
+          throw new SAMLException(
+              "Response has invalid status code " + statusCode + ", second-level status code " + secondLevelStatusCodeValue + ", status message is " + statusMessageText);
         }
 
         // Verify signature of the response if present, unless already verified in binding
