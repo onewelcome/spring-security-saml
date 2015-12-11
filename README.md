@@ -24,3 +24,18 @@ Forum: http://forum.spring.io/forum/spring-projects/security/saml
 Commercial: vladimir@v7security.com
 
 Online demo: http://saml-federation.appspot.com/
+
+
+Requests preparation
+====================
+
+Passive request param: `passive=true`
+
+Example: http://localhost:8080/spring-security-saml2-sample/?passive=true
+
+Passive request cookie based request params: `passive=true&authnContexts=urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession`
+
+Example: http://localhost:8080/spring-security-saml2-sample/?passive=true&authnContexts=urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession
+
+The `authnContexts` param can be used for other valid authentication context values too.
+
