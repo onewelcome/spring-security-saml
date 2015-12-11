@@ -37,3 +37,5 @@ Passive request cookie based request params: `passive=true&authnContexts=urn:oas
 
 Example: http://localhost:8080/spring-security-saml2-sample/?passive=true&authnContexts=urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession
 
+The `authnContexts` param can be used for other valid authentication context values too.
+
