@@ -113,9 +113,9 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.security.extensions</groupId>
+      <groupId>com.onegini.saml</groupId>
       <artifactId>spring-security-saml2-core</artifactId>
-      <version>1.0.0.RELEASE</version>
+      <version>1.0.0.RELEASE-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
