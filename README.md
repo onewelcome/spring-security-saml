@@ -32,7 +32,11 @@ IdP Metadata Configuration
 The Sample module needs a running SAML Identity Provider (IdP) for the authentication. The default configuration uses the SAML metadata for a Onegini IdP that 
 runs on http://itest.onegini.me:8989. 
 
-The IdP metadata for http://dev.onegini.me:8990 (local docker) is loaded by running the sample with the `docker` profile:
+The IdP metadata for http://dev.onegini.me:8989 (local development) is loaded by running the sample with the `local` profile:
+
+    mvn tomcat7:run -P local
+
+The IdP metadata for http://dev.onegini.me:8990 (docker) is loaded by running the sample with the `docker` profile:
 
     mvn tomcat7:run -P docker
 

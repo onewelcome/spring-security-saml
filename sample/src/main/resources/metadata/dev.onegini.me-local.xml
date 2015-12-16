@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IDP local development -->
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="onegini.me" entityID="http://dev.onegini.me:8989"
+                     validUntil="2015-12-17T09:36:51.930Z">
+  <md:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:Extensions>
+      <mdui:UIInfo xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
+        <mdui:DisplayName xml:lang="nl">Onegini</mdui:DisplayName>
+        <mdui:Description xml:lang="nl">In Onegini kunt u uw digitale identiteit aanmaken en beheren. U kunt in Onegini inloggen met een account dat u vaker
+          gebruikt en daarom eenvoudiger te onthouden is.
+        </mdui:Description>
+        <mdui:Keywords xml:lang="nl">onegini gini</mdui:Keywords>
+        <mdui:Logo height="105" width="105">http://dev.onegini.me:8989/static/img/placeholders/onegini.png</mdui:Logo>
+      </mdui:UIInfo>
+    </md:Extensions>
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <ds:X509Certificate>
+            MIIDrjCCApYCCQC3i3A9nfvWOjANBgkqhkiG9w0BAQUFADCBmDELMAkGA1UEBhMCTkwxEDAOBgNVBAgTB1V0cmVjaHQxEDAOBgNVBAcTB1dvZXJkZW4xITAfBgNVBAoTGElubm92YXRpb24gRGlzdHJpY3QgQi5WLjELMAkGA1UECxMCSVQxFDASBgNVBAMTC29uZWdpbmktZGV2MR8wHQYJKoZIhvcNAQkBFhBpbmZvQG9uZWdpbmkuY29tMB4XDTEzMDIxMTEzMjUzNloXDTIzMDIwOTEzMjUzNlowgZgxCzAJBgNVBAYTAk5MMRAwDgYDVQQIEwdVdHJlY2h0MRAwDgYDVQQHEwdXb2VyZGVuMSEwHwYDVQQKExhJbm5vdmF0aW9uIERpc3RyaWN0IEIuVi4xCzAJBgNVBAsTAklUMRQwEgYDVQQDEwtvbmVnaW5pLWRldjEfMB0GCSqGSIb3DQEJARYQaW5mb0BvbmVnaW5pLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKoVKtfFo13oi8epB1SE5pFPlbk4X5PcuZ7B4g1Fyc8RlOixMzw9KaWKey/t9EpLoZalwTVc9s4oEPl1jd8NqZFzdMe9hqB0tSd2WKzZb6dWXxtQA0xr0UGpYX/d/gsThCyYdP1/yZtmMWMCDrDUnittShOKCMNOobCCh2tq/8ILPtw+r8ncclX9XuS0VF4dqV6d2GRUFbIDboZ7tzXcWvCaR6f42P1QThbJIbHHAkhEmjLMDd8YS7b6d3wbrLqdU6ojjarnZ+9pBbS+btmehv6QRO+wRO/qVgJpj3qmy1K8Sa6E6PD/LhgGUfrP4BipfeFD7slvol3xKFu9iNlrYTcCAwEAATANBgkqhkiG9w0BAQUFAAOCAQEAPVYOzkd4nUyxctuou/m/j2P+yRtbWeFBxJ1UkJDiexAXUBMWrB/jPdU3KYsok2giZewq6jWdmkMJy4Z4UCOi0zIZACzIxEGx5S4etCTUtPRnEeV3Kxzv1MbfZMZ4xWh3LUnh23zBASFdr+72H31uUn9Aj8KPWn2kaW4a7m/53ftXSVUzSZZOQNXVuT0MVNsBE1dUedhTVcXmpINZuS9o8gRZfgD5Bf2D/ZqfcYf6uMRlD0YK65RsNuP8G7K1hCTlwQi0SbNp1avGGZfRsLNCG4CBjM/+aquyH+mGHEcqoQuq+HiBdfyTdpeSlPNxfCZUt2x7lpRB1tZxO0y45vqt7g==
+          </ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="http://dev.onegini.me:8989/saml/single-logout"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://dev.onegini.me:8989/saml/single-logout"/>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
+    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="http://dev.onegini.me:8989/saml/single-sign-on"/>
+    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://dev.onegini.me:8989/saml/single-sign-on"/>
+  </md:IDPSSODescriptor>
+  <md:Organization>
+    <md:OrganizationName xml:lang="nl">Onegini</md:OrganizationName>
+    <md:OrganizationDisplayName xml:lang="nl">Onegini</md:OrganizationDisplayName>
+    <md:OrganizationURL xml:lang="nl">http://dev.onegini.me:8989</md:OrganizationURL>
+  </md:Organization>
+  <md:ContactPerson contactType="support">
+    <md:GivenName>onegini.me</md:GivenName>
+    <md:EmailAddress>support@onegini.me</md:EmailAddress>
+  </md:ContactPerson>
+  <md:ContactPerson contactType="technical">
+    <md:GivenName>onegini.me</md:GivenName>
+    <md:EmailAddress>support@onegini.me</md:EmailAddress>
+  </md:ContactPerson>
+</md:EntityDescriptor>
