@@ -63,33 +63,6 @@
     <url>https://github.com/SpringSource/spring-security-saml</url>
   </scm>
 
-  <repositories>
-    <repository>
-      <id>Onegini Artifactory</id>
-      <name>Onegini Artifactory-releases</name>
-      <url>https://repo.onegini.com/artifactory/public</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>Onegini Artifactory</id>
-      <name>Onegini Artifactory-releases</name>
-      <url>https://repo.onegini.com/artifactory/public</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories>
-
   <dependencies>
     <dependency>
       <groupId>org.opensaml</groupId>

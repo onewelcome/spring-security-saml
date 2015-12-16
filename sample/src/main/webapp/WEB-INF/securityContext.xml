@@ -12,6 +12,8 @@
     <!-- Scan for auto-wiring classes in spring saml packages -->
     <context:component-scan base-package="org.springframework.security.saml"/>
 
+    <context:property-placeholder />
+
     <!-- Unsecured pages -->
     <security:http security="none" pattern="/favicon.ico"/>
     <security:http security="none" pattern="/images/**"/>
@@ -134,15 +136,14 @@
                             </constructor-arg>
                             <constructor-arg>
                                 <bean class="org.opensaml.util.resource.ClasspathResource">
-                                    <constructor-arg value="/metadata/itest.onegini.me.xml"/>
+                                    <constructor-arg value="${SAML_SAMPLE_IDP_METADATA_CLASSPATH_RESOURCE:/metadata/itest.onegini.me.xml}"/>
                                 </bean>
                             </constructor-arg>
                             <property name="parserPool" ref="parserPool"/>
                         </bean>
                     </constructor-arg>
                     <constructor-arg>
-                        <bean class="org.springframework.security.saml.metadata.ExtendedMetadata">
-                        </bean>
+                        <bean class="org.springframework.security.saml.metadata.ExtendedMetadata"/>
                     </constructor-arg>
                 </bean>
             </list>
