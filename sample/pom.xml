@@ -101,7 +101,7 @@
   </build>
   <profiles>
     <profile>
-      <id>docker-dev</id>
+      <id>docker</id>
       <build>
         <plugins>
           <plugin>
