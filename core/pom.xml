@@ -3,14 +3,29 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.onegini.saml</groupId>
   <artifactId>spring-security-saml2-core</artifactId>
-  <version>1.0.1.RELEASE</version>
+  <version>1.0.1-SNAPSHOT</version>
+
   <name>Spring Security SAML v2 library</name>
   <description>Spring Security SAML v2 library</description>
   <url>https://github.com/SpringSource/spring-security-saml</url>
-  <organization>
-    <name>SpringSource</name>
-    <url>http://springsource.org/spring-security-saml</url>
-  </organization>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.8</java.version>
+
+    <commons-logging.version>1.1.1</commons-logging.version>
+    <easymock.version>2.4</easymock.version>
+    <opensaml.version>2.6.1</opensaml.version>
+    <junit.version>4.4</junit.version>
+    <servlet-api.version>2.5</servlet-api.version>
+    <slf4j-api.version>1.6.3</slf4j-api.version>
+    <spring.version>3.1.2.RELEASE</spring.version>
+    <spring-security.version>3.1.2.RELEASE</spring-security.version>
+    <xalan.version>2.7.2</xalan.version>
+    <xml-apis.version>1.4.01</xml-apis.version>
+    <xmlunit.version>1.0</xmlunit.version>
+  </properties>
+
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -18,13 +33,7 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  <mailingLists>
-    <mailingList>
-      <name>Spring Security SAML Forum</name>
-      <post>http://forum.springsource.org/forumdisplay.php?86-SAML</post>
-      <archive>http://forum.springsource.org/forumdisplay.php?86-SAML</archive>
-    </mailingList>
-  </mailingLists>
+
   <developers>
     <developer>
       <id>vschafer</id>
@@ -47,20 +56,18 @@
       <name>Wade Dorrell</name>
     </contributor>
   </contributors>
-  <issueManagement>
-    <system>jira</system>
-    <url>http://jira.springsource.org/browse/SES</url>
-  </issueManagement>
+
   <scm>
     <connection>scm:git:git://github.com/SpringSource/spring-security-saml</connection>
     <developerConnection>scm:git:git://github.com/SpringSource/spring-security-saml</developerConnection>
     <url>https://github.com/SpringSource/spring-security-saml</url>
   </scm>
+
   <dependencies>
     <dependency>
       <groupId>org.opensaml</groupId>
       <artifactId>opensaml</artifactId>
-      <version>2.6.1</version>
+      <version>${opensaml.version}</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -84,25 +91,25 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.6.3</version>
+      <version>${slf4j-api.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
-      <version>3.1.2.RELEASE</version>
+      <version>${spring-security.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-core</artifactId>
-      <version>3.1.2.RELEASE</version>
+      <version>${spring-security.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-web</artifactId>
-      <version>3.1.2.RELEASE</version>
+      <version>${spring-security.version}</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -118,42 +125,47 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
+      <version>${servlet-api.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>xml-apis</groupId>
       <artifactId>xml-apis</artifactId>
-      <version>1.4.01</version>
+      <version>${xml-apis.version}</version>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+      <version>${xalan.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
-      <version>1.1.1</version>
+      <version>${commons-logging.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.4</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>2.4</version>
+      <version>${easymock.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-      <version>1.6.3</version>
+      <version>${slf4j-api.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>3.1.2.RELEASE</version>
+      <version>${spring.version}</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -165,8 +177,21 @@
     <dependency>
       <groupId>xmlunit</groupId>
       <artifactId>xmlunit</artifactId>
-      <version>1.0</version>
+      <version>${xmlunit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
