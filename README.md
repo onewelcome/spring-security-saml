@@ -26,6 +26,24 @@ Commercial: vladimir@v7security.com
 Online demo: http://saml-federation.appspot.com/
 
 
+IdP Metadata Configuration
+==========================
+
+The Sample module needs a running SAML Identity Provider (IdP) for the authentication. The default configuration uses the SAML metadata for a Onegini IdP that 
+runs on http://itest.onegini.me:8989. 
+
+The IdP metadata for http://dev.onegini.me:8989 (local development) is loaded by running the sample with the `local` profile:
+
+    mvn tomcat7:run -P local
+
+The IdP metadata for http://dev.onegini.me:8990 (docker) is loaded by running the sample with the `docker` profile:
+
+    mvn tomcat7:run -P docker
+
+A different configuration can be loaded via the system property `SAML_SAMPLE_IDP_METADATA_CLASSPATH_RESOURCE`. This resource must refer to a metadata file on 
+the classpath.
+
+
 Requests preparation
 ====================
 
@@ -38,4 +56,3 @@ Passive request cookie based request params: `passive=true&authnContexts=urn:oas
 Example: http://localhost:8080/spring-security-saml2-sample/?passive=true&authnContexts=urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession
 
 The `authnContexts` param can be used for other valid authentication context values too.
-

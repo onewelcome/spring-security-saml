@@ -10,16 +10,20 @@
   <description>Spring Security SAML v2 sample webapp</description>
   <url>https://github.com/Innovation-District/spring-security-saml</url>
 
-  <parent>
-    <groupId>com.innovation-district</groupId>
-    <artifactId>idparent</artifactId>
-    <version>2</version>
-  </parent>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.8</java.version>
 
-  <organization>
-    <name>SpringSource</name>
-    <url>http://springsource.org/spring-security-saml</url>
-  </organization>
+    <jsp-api.version>2.0</jsp-api.version>
+    <jstl.version>1.2</jstl.version>
+    <junit.version>4.4</junit.version>
+    <slf4j.version>1.6.3</slf4j.version>
+    <spring.version>3.1.2.RELEASE</spring.version>
+    <spring-security-saml2-core.version>1.0.2-SNAPSHOT</spring-security-saml2-core.version>
+    <spring-security.version>3.1.2.RELEASE</spring-security.version>
+
+    <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
+  </properties>
 
   <licenses>
     <license>
@@ -28,14 +32,6 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
-  <mailingLists>
-    <mailingList>
-      <name>Spring Security SAML Forum</name>
-      <post>http://forum.springsource.org/forumdisplay.php?86-SAML</post>
-      <archive>http://forum.springsource.org/forumdisplay.php?86-SAML</archive>
-    </mailingList>
-  </mailingLists>
 
   <contributors>
     <contributor>
@@ -52,11 +48,6 @@
     </contributor>
   </contributors>
 
-  <issueManagement>
-    <system>jira</system>
-    <url>http://jira.springsource.org/browse/SES</url>
-  </issueManagement>
-
   <scm>
     <connection>scm:git:https://github.com/Innovation-District/spring-security-saml.git</connection>
     <developerConnection>scm:git:git@github.com:Innovation-District/spring-security-saml.git</developerConnection>
@@ -66,17 +57,30 @@
 
   <repositories>
     <repository>
-      <id>innovation-district-nexus</id>
-      <name>Innovation District Nexus Maven repository for third party dependencies</name>
-      <url>https://buildserver.onegini.com/nexus/content/groups/public</url>
+      <id>Onegini Artifactory</id>
+      <name>Onegini Artifactory-releases</name>
+      <url>https://repo.onegini.com/artifactory/public</url>
       <snapshots>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
       </snapshots>
       <releases>
         <enabled>true</enabled>
       </releases>
     </repository>
   </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>Onegini Artifactory</id>
+      <name>Onegini Artifactory-releases</name>
+      <url>https://repo.onegini.com/artifactory/public</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
 
   <build>
     <finalName>spring-security-saml2-sample</finalName>
@@ -85,91 +89,129 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat7-maven-plugin</artifactId>
-        <version>2.2</version>
+        <version>${tomcat7-maven-plugin.version}</version>
         <configuration>
           <path>/spring-security-saml2-sample</path>
         </configuration>
       </plugin>
     </plugins>
-  </build>  
+  </build>
+  <profiles>
+    <profile>
+      <id>docker</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.tomcat.maven</groupId>
+            <artifactId>tomcat7-maven-plugin</artifactId>
+            <version>2.2</version>
+            <configuration>
+              <path>/spring-security-saml2-sample</path>
+              <systemProperties>
+                <SAML_SAMPLE_IDP_METADATA_CLASSPATH_RESOURCE>/metadata/dev.onegini.me-docker.xml</SAML_SAMPLE_IDP_METADATA_CLASSPATH_RESOURCE>
+              </systemProperties>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>local</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.tomcat.maven</groupId>
+            <artifactId>tomcat7-maven-plugin</artifactId>
+            <version>2.2</version>
+            <configuration>
+              <path>/spring-security-saml2-sample</path>
+              <systemProperties>
+                <SAML_SAMPLE_IDP_METADATA_CLASSPATH_RESOURCE>/metadata/dev.onegini.me-local.xml</SAML_SAMPLE_IDP_METADATA_CLASSPATH_RESOURCE>
+              </systemProperties>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   <dependencies>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
-      <version>1.2</version>
+      <version>${jstl.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-      <version>1.6.3</version>
+      <version>${slf4j.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.onegini.saml</groupId>
       <artifactId>spring-security-saml2-core</artifactId>
-      <version>1.0.2-SNAPSHOT</version>
+      <version>${spring-security-saml2-core.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
-      <version>3.1.2.RELEASE</version>
+      <version>${spring-security.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>3.1.2.RELEASE</version>
+      <version>${spring.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
-      <version>3.1.2.RELEASE</version>
+      <version>${spring.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>3.1.2.RELEASE</version>
+      <version>${spring.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-aop</artifactId>
-      <version>3.1.2.RELEASE</version>
+      <version>${spring.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
-      <version>3.1.2.RELEASE</version>
+      <version>${spring.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>3.1.2.RELEASE</version>
+      <version>${spring.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jsp-api</artifactId>
-      <version>2.0</version>
+      <version>${jsp-api.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.4</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
