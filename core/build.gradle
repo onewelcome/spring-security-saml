@@ -3,7 +3,8 @@ description = "Spring Security SAML v2 library"
 dependencies {
 	compile "org.springframework.security:spring-security-core:$springSecurityVersion",
 		"org.springframework.security:spring-security-config:$springSecurityVersion",
-		"org.slf4j:slf4j-api:$slf4jVersion"	
+		"org.slf4j:slf4j-api:$slf4jVersion",
+		"org.apache.httpcomponents:httpclient:4.5.1"
 	compile ("org.springframework.security:spring-security-web:$springSecurityVersion") {
 		exclude group: "org.springframework", module: "spring-jdbc"
 		exclude group: "org.springframework", module: "spring-tx"

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.onegini.saml</groupId>
   <artifactId>spring-security-saml2-core</artifactId>
-  <version>1.0.1.RELEASE</version>
+  <version>1.0.2-SNAPSHOT</version>
   <name>Spring Security SAML v2 library</name>
   <description>Spring Security SAML v2 library</description>
   <url>https://github.com/SpringSource/spring-security-saml</url>
@@ -167,6 +167,11 @@
       <artifactId>xmlunit</artifactId>
       <version>1.0</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.1</version>
     </dependency>
   </dependencies>
 </project>

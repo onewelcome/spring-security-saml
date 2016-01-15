@@ -51,6 +51,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import com.onegini.ExtendedSAMLResponse;
+
 /**
  * Class initializes SAML WebSSO Profile, IDP Discovery or ECP Profile from the SP side. Configuration
  * of the local service provider and incoming request determines which profile will get invoked.
@@ -143,7 +145,7 @@ public class SAMLEntryPoint extends GenericFilterBean implements AuthenticationE
 
         try {
 
-            SAMLMessageContext context = contextProvider.getLocalAndPeerEntity(request, response);
+            SAMLMessageContext context = contextProvider.getLocalAndPeerEntity(request, new ExtendedSAMLResponse(request, response));
 
             if (isECP(context)) {
                 initializeECP(context, e);

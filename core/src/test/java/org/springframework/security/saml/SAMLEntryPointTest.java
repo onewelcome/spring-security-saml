@@ -40,6 +40,8 @@ import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
+
 /**
  * @author Vladimir Schafer
  */
@@ -135,6 +137,7 @@ public class SAMLEntryPointTest {
         SAMLTestHelper.setLocalContextParameters(request, "/samlApp", null);
         SAMLTestHelper.setPeerContextParameters(request, null, null);
         expect(request.getAttribute(org.springframework.security.saml.SAMLConstants.LOCAL_CONTEXT_PATH)).andReturn("/samlApp");
+        expect(request.getParameterMap()).andReturn(new HashMap());
         response.sendRedirect("/samlApp/saml/discovery?returnIDParam=idp&entityID=http://localhost:8081/spring-security-saml2-webapp");
 
         replayMock();
