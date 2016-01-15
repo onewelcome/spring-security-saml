@@ -1,16 +1,24 @@
 package com.onegini;
 
+import static com.onegini.SAMLRequestConfigurationParameter.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class HttpRequestParametersReader {
+public class HttpRequestCustomParameterReader {
 
+  private final static List<String> BLACKLISTED_PARAMETERS = new ArrayList<>();
   private final HttpServletRequest request;
 
-  public HttpRequestParametersReader(final HttpServletRequest request) {
+  static {
+    BLACKLISTED_PARAMETERS.add(PARAM_AUTHN_CONTEXTS);
+    BLACKLISTED_PARAMETERS.add(PARAM_PASSIVE);
+  }
+
+  public HttpRequestCustomParameterReader(final HttpServletRequest request) {
     this.request = request;
   }
 
@@ -20,7 +28,9 @@ public class HttpRequestParametersReader {
     final List<HttpParameter> forwardedParameters = new ArrayList<HttpParameter>();
 
     for (final Map.Entry<String, String[]> requestParameter : requestParameters.entrySet()) {
-      addParameters(requestParameter, forwardedParameters);
+      if (isOnWhitelist(requestParameter.getKey())) {
+        addParameters(requestParameter, forwardedParameters);
+      }
     }
 
     return forwardedParameters;
@@ -30,6 +40,10 @@ public class HttpRequestParametersReader {
     for (final String value : requestParameter.getValue()) {
       forwardedParameters.add(new HttpParameter(requestParameter.getKey(), value));
     }
+  }
+
+  private boolean isOnWhitelist(final String parameterName) {
+    return !BLACKLISTED_PARAMETERS.contains(parameterName);
   }
 
 }

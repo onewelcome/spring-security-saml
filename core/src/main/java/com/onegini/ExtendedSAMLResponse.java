@@ -26,7 +26,7 @@ public class ExtendedSAMLResponse extends HttpServletResponseWrapper {
 
   @Override
   public void sendRedirect(final String location) throws IOException {
-    final List<HttpParameter> forwardedParameters = new HttpRequestParametersReader(request).getParameters();
+    final List<HttpParameter> forwardedParameters = new HttpRequestCustomParameterReader(request).getParameters();
     final String redirectionUrl = buildRedirectionUrl(location, forwardedParameters);
     super.sendRedirect(redirectionUrl);
   }
