@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class HttpRequestCustomParameterReader {
 
-  private final static List<String> BLACKLISTED_PARAMETERS = new ArrayList<>();
+  private final static List<String> BLACKLISTED_PARAMETERS = new ArrayList<String>();
   private final HttpServletRequest request;
 
   static {
