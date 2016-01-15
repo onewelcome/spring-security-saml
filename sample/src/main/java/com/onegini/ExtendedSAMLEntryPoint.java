@@ -1,5 +1,8 @@
 package com.onegini;
 
+import static com.onegini.SAMLRequestConfigurationParameter.PARAM_AUTHN_CONTEXTS;
+import static com.onegini.SAMLRequestConfigurationParameter.PARAM_PASSIVE;
+
 import java.util.List;
 
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
@@ -21,14 +24,14 @@ public class ExtendedSAMLEntryPoint extends SAMLEntryPoint {
   }
 
   private void setAuthContextIfPresentInRequest(final HttpServletRequestAdapter inboundMessageTransport, final WebSSOProfileOptions profileOptions) {
-    final List<String> authnContexts = inboundMessageTransport.getParameterValues("authnContexts");
+    final List<String> authnContexts = inboundMessageTransport.getParameterValues(PARAM_AUTHN_CONTEXTS);
     if (!authnContexts.isEmpty()) {
       profileOptions.setAuthnContexts(authnContexts);
     }
   }
 
   private void setPassiveIfPresentInRequest(final HttpServletRequestAdapter inboundMessageTransport, final WebSSOProfileOptions profileOptions) {
-    if (Boolean.parseBoolean(inboundMessageTransport.getParameterValue("passive"))) {
+    if (Boolean.parseBoolean(inboundMessageTransport.getParameterValue(PARAM_PASSIVE))) {
       profileOptions.setPassive(true);
     }
   }
