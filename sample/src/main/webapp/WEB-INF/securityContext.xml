@@ -107,6 +107,8 @@
         </property>
     </bean>
 
+    <bean id="customProfileOptions" class="com.onegini.CustomWebSSOProfileOptions" />
+
     <!-- IDP Discovery Service -->
     <bean id="samlIDPDiscovery" class="org.springframework.security.saml.SAMLDiscovery">
         <property name="idpSelectionPath" value="/WEB-INF/security/idpSelection.jsp"/>
@@ -219,7 +221,7 @@
     <bean id="hokWebSSOprofileConsumer" class="org.springframework.security.saml.websso.WebSSOProfileConsumerHoKImpl"/>
 
     <!-- SAML 2.0 Web SSO profile -->
-    <bean id="webSSOprofile" class="org.springframework.security.saml.websso.WebSSOProfileImpl"/>
+    <bean id="webSSOprofile" class="com.onegini.saml.websso.ExtendedWebSSOProfileImpl"/>
 
     <!-- SAML 2.0 Holder-of-Key Web SSO profile -->
     <bean id="hokWebSSOProfile" class="org.springframework.security.saml.websso.WebSSOProfileConsumerHoKImpl"/>

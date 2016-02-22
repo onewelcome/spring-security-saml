@@ -24,6 +24,7 @@
     <xalan.version>2.7.2</xalan.version>
     <xml-apis.version>1.4.01</xml-apis.version>
     <xmlunit.version>1.0</xmlunit.version>
+    <id-saml.version>105.00.01-SNAPSHOT</id-saml.version>
   </properties>
 
   <licenses>
@@ -184,6 +185,16 @@
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.innovation-district.misc.saml</groupId>
+      <artifactId>id-saml-common</artifactId>
+      <version>${id-saml.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.innovation-district.misc.saml</groupId>
+      <artifactId>id-saml-idp</artifactId>
+      <version>${id-saml.version}</version>
     </dependency>
   </dependencies>
 </project>
