@@ -19,8 +19,8 @@ import org.springframework.security.saml.SAMLEntryPoint;
 import org.springframework.security.saml.context.SAMLMessageContext;
 import org.springframework.security.saml.websso.WebSSOProfileOptions;
 
-import com.innovation_district.saml.common.model.inlinelogin.InlineLoginCredentialsDto;
-import com.innovation_district.saml.common.model.inlinelogin.InlineLoginDto;
+import com.onegini.sdk.saml.inlinelogin.InlineLogin;
+import com.onegini.sdk.saml.inlinelogin.InlineLoginCredentials;
 
 public class ExtendedSAMLEntryPoint extends SAMLEntryPoint {
 
@@ -54,21 +54,21 @@ public class ExtendedSAMLEntryPoint extends SAMLEntryPoint {
   private void setInlineLoginIfPresentInRequest(final HttpServletRequestAdapter inboundMessageTransport, final WebSSOProfileOptions profileOptions) {
     final String idpType = inboundMessageTransport.getParameterValue(PARAM_IDP_TYPE);
     if (idpType != null && profileOptions.getAuthnContexts() != null && profileOptions.getAuthnContexts().contains(INLINE_LOGIN_AUTHN_CTX)) {
-      final InlineLoginCredentialsDto credentials = readCredentials(inboundMessageTransport);
+      final InlineLoginCredentials credentials = readCredentials(inboundMessageTransport);
       if (credentials == null) {
-        customWebSSOProfileOptions.setInlineLogin(new InlineLoginDto(idpType));
+        customWebSSOProfileOptions.setInlineLogin(new InlineLogin(idpType));
       } else {
-        customWebSSOProfileOptions.setInlineLogin(new InlineLoginDto(idpType, credentials));
+        customWebSSOProfileOptions.setInlineLogin(new InlineLogin(idpType, credentials));
       }
     }
   }
 
-  private InlineLoginCredentialsDto readCredentials(final HttpServletRequestAdapter inboundMessageTransport) {
+  private InlineLoginCredentials readCredentials(final HttpServletRequestAdapter inboundMessageTransport) {
     final String username = inboundMessageTransport.getParameterValue(PARAM_USERNAME);
     final String password = inboundMessageTransport.getParameterValue(PARAM_PASSWORD);
     final String encryptionParameter = inboundMessageTransport.getParameterValue(PARAM_ENCRYPTION_PARAMETER);
     if (username != null && password != null && encryptionParameter != null) {
-      return new InlineLoginCredentialsDto(username, password, encryptionParameter);
+      return new InlineLoginCredentials(username, password, encryptionParameter);
     } else {
       return null;
     }

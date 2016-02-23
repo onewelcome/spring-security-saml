@@ -24,6 +24,7 @@
     <xalan.version>2.7.2</xalan.version>
     <xml-apis.version>1.4.01</xml-apis.version>
     <xmlunit.version>1.0</xmlunit.version>
+    <onegini-sdk.version>5.00.01-SNAPSHOT</onegini-sdk.version>
     <id-saml.version>105.00.01-SNAPSHOT</id-saml.version>
   </properties>
 
@@ -190,6 +191,11 @@
       <groupId>com.innovation-district.misc.saml</groupId>
       <artifactId>id-saml-common</artifactId>
       <version>${id-saml.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.onegini</groupId>
+      <artifactId>onegini-sdk</artifactId>
+      <version>${onegini-sdk.version}</version>
     </dependency>
     <dependency>
       <groupId>com.innovation-district.misc.saml</groupId>

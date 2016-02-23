@@ -10,17 +10,18 @@ import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.SingleSignOnService;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.schema.XSAny;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.saml.context.SAMLMessageContext;
 import org.springframework.security.saml.websso.WebSSOProfileImpl;
 import org.springframework.security.saml.websso.WebSSOProfileOptions;
 
-import com.innovation_district.saml.common.model.inlinelogin.InlineLoginCredentialsDto;
-import com.innovation_district.saml.common.model.inlinelogin.InlineLoginCredentialsExtension;
-import com.innovation_district.saml.common.model.inlinelogin.InlineLoginDto;
-import com.innovation_district.saml.common.model.inlinelogin.InlineLoginExtension;
 import com.onegini.CustomWebSSOProfileOptions;
+import com.onegini.sdk.saml.inlinelogin.InlineLogin;
+import com.onegini.sdk.saml.inlinelogin.InlineLoginBuilder;
+import com.onegini.sdk.saml.inlinelogin.InlineLoginCredentials;
+import com.onegini.sdk.saml.inlinelogin.InlineLoginCredentialsBuilder;
 
 public class ExtendedWebSSOProfileImpl extends WebSSOProfileImpl {
 
@@ -48,15 +49,15 @@ public class ExtendedWebSSOProfileImpl extends WebSSOProfileImpl {
 
   private XMLObject buildInlineLoginExtension(final AuthnRequest request, final WebSSOProfileOptions options) {
     if (customWebSSOProfileOptions.getInlineLogin() != null) {
-      final InlineLoginDto inlineLogin = customWebSSOProfileOptions.getInlineLogin();
-      final Optional<InlineLoginCredentialsDto> credentialsDto = customWebSSOProfileOptions.getInlineLogin().getInlineLoginCredentialsExtension();
+      final InlineLogin inlineLogin = customWebSSOProfileOptions.getInlineLogin();
+      final Optional<InlineLoginCredentials> credentialsDto = customWebSSOProfileOptions.getInlineLogin().getCredentials();
       if (credentialsDto.isPresent()) {
-        final InlineLoginCredentialsExtension credentials = new InlineLoginCredentialsExtension(
+        final XSAny credentials = new InlineLoginCredentialsBuilder().buildObject(
             credentialsDto.get().getUsername(), credentialsDto.get().getPassword(), credentialsDto.get().getEncryptionParameter());
 
-        return new InlineLoginExtension(inlineLogin.getIdpType(), credentials);
+        return new InlineLoginBuilder().buildObject(inlineLogin.getIdpType(), credentials);
       } else {
-        return new InlineLoginExtension(inlineLogin.getIdpType());
+        return new InlineLoginBuilder().buildObject(inlineLogin.getIdpType());
       }
     } else {
       return null;

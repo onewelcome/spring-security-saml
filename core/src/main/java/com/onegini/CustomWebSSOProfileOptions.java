@@ -1,16 +1,16 @@
 package com.onegini;
 
-import com.innovation_district.saml.common.model.inlinelogin.InlineLoginDto;
+import com.onegini.sdk.saml.inlinelogin.InlineLogin;
 
 public class CustomWebSSOProfileOptions {
 
-  private InlineLoginDto inlineLogin;
+  private InlineLogin inlineLogin;
 
-  public InlineLoginDto getInlineLogin() {
+  public InlineLogin getInlineLogin() {
     return inlineLogin;
   }
 
-  public void setInlineLogin(final InlineLoginDto inlineLogin) {
+  public void setInlineLogin(final InlineLogin inlineLogin) {
     this.inlineLogin = inlineLogin;
   }
 }
