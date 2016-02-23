@@ -1,12 +1,12 @@
 package com.onegini;
 
-import static com.innovation_district.saml.idp.util.SamlConstants.INLINE_LOGIN_AUTHN_CTX;
 import static com.onegini.SAMLRequestConfigurationParameter.PARAM_AUTHN_CONTEXTS;
 import static com.onegini.SAMLRequestConfigurationParameter.PARAM_ENCRYPTION_PARAMETER;
 import static com.onegini.SAMLRequestConfigurationParameter.PARAM_IDP_TYPE;
 import static com.onegini.SAMLRequestConfigurationParameter.PARAM_PASSIVE;
 import static com.onegini.SAMLRequestConfigurationParameter.PARAM_PASSWORD;
 import static com.onegini.SAMLRequestConfigurationParameter.PARAM_USERNAME;
+import static com.onegini.model.InlineLogin.INLINE_LOGIN_AUTHN_CTX;
 
 import java.util.List;
 
@@ -19,8 +19,7 @@ import org.springframework.security.saml.SAMLEntryPoint;
 import org.springframework.security.saml.context.SAMLMessageContext;
 import org.springframework.security.saml.websso.WebSSOProfileOptions;
 
-import com.innovation_district.saml.idp.model.inlinelogin.InlineLogin;
-import com.innovation_district.saml.idp.model.inlinelogin.InlineLoginCredentials;
+import com.onegini.model.InlineLogin;
 
 public class ExtendedSAMLEntryPoint extends SAMLEntryPoint {
 
@@ -53,24 +52,13 @@ public class ExtendedSAMLEntryPoint extends SAMLEntryPoint {
 
   private void setInlineLoginIfPresentInRequest(final HttpServletRequestAdapter inboundMessageTransport, final WebSSOProfileOptions profileOptions) {
     final String idpType = inboundMessageTransport.getParameterValue(PARAM_IDP_TYPE);
-    if (idpType != null && profileOptions.getAuthnContexts() != null && profileOptions.getAuthnContexts().contains(INLINE_LOGIN_AUTHN_CTX)) {
-      final InlineLoginCredentials credentials = readCredentials(inboundMessageTransport);
-      if (credentials == null) {
-        customWebSSOProfileOptions.setInlineLogin(new InlineLogin(idpType));
-      } else {
-        customWebSSOProfileOptions.setInlineLogin(new InlineLogin(idpType, credentials));
-      }
-    }
-  }
-
-  private InlineLoginCredentials readCredentials(final HttpServletRequestAdapter inboundMessageTransport) {
     final String username = inboundMessageTransport.getParameterValue(PARAM_USERNAME);
     final String password = inboundMessageTransport.getParameterValue(PARAM_PASSWORD);
     final String encryptionParameter = inboundMessageTransport.getParameterValue(PARAM_ENCRYPTION_PARAMETER);
-    if (username != null && password != null && encryptionParameter != null) {
-      return new InlineLoginCredentials(username, password, encryptionParameter);
-    } else {
-      return null;
+
+    if (idpType != null && username != null && password != null && encryptionParameter != null &&
+        profileOptions.getAuthnContexts() != null && profileOptions.getAuthnContexts().contains(INLINE_LOGIN_AUTHN_CTX)) {
+      customWebSSOProfileOptions.setInlineLogin(new InlineLogin(idpType, username, password, encryptionParameter));
     }
   }
 

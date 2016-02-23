@@ -9,6 +9,21 @@
   <description>Spring Security SAML v2 library</description>
   <url>https://github.com/SpringSource/spring-security-saml</url>
 
+  <repositories>
+    <repository>
+      <id>Onegini Artifactory</id>
+      <name>Onegini Artifactory-releases</name>
+      <url>https://repo.onegini.com/artifactory/public</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>Onegini Artifactory</id>
+      <name>Onegini Artifactory-releases</name>
+      <url>https://repo.onegini.com/artifactory/public</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.6</java.version>
@@ -25,7 +40,6 @@
     <xml-apis.version>1.4.01</xml-apis.version>
     <xmlunit.version>1.0</xmlunit.version>
     <onegini-sdk.version>5.00.01-SNAPSHOT</onegini-sdk.version>
-    <id-saml.version>105.00.01-SNAPSHOT</id-saml.version>
   </properties>
 
   <licenses>
@@ -188,19 +202,9 @@
       <version>4.5.1</version>
     </dependency>
     <dependency>
-      <groupId>com.innovation-district.misc.saml</groupId>
-      <artifactId>id-saml-common</artifactId>
-      <version>${id-saml.version}</version>
-    </dependency>
-    <dependency>
       <groupId>com.onegini</groupId>
       <artifactId>onegini-sdk</artifactId>
       <version>${onegini-sdk.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.innovation-district.misc.saml</groupId>
-      <artifactId>id-saml-idp</artifactId>
-      <version>${id-saml.version}</version>
     </dependency>
   </dependencies>
 </project>

@@ -1,7 +1,5 @@
 package com.onegini.saml.websso;
 
-import java.util.Optional;
-
 import org.opensaml.common.SAMLException;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.common.impl.ExtensionsBuilder;
@@ -16,8 +14,8 @@ import org.springframework.security.saml.context.SAMLMessageContext;
 import org.springframework.security.saml.websso.WebSSOProfileImpl;
 import org.springframework.security.saml.websso.WebSSOProfileOptions;
 
-import com.innovation_district.saml.idp.model.inlinelogin.InlineLoginCredentials;
 import com.onegini.CustomWebSSOProfileOptions;
+import com.onegini.model.InlineLogin;
 import com.onegini.sdk.saml.inlinelogin.InlineLoginBuilder;
 
 public class ExtendedWebSSOProfileImpl extends WebSSOProfileImpl {
@@ -46,9 +44,8 @@ public class ExtendedWebSSOProfileImpl extends WebSSOProfileImpl {
 
   private XMLObject buildInlineLoginExtension() {
     if (customWebSSOProfileOptions.getInlineLogin() != null) {
-      final Optional<InlineLoginCredentials> credentialsDto = customWebSSOProfileOptions.getInlineLogin().getCredentials();
-      return new InlineLoginBuilder().buildUnpIdpInlineLogin(
-          credentialsDto.get().getUsername(), credentialsDto.get().getPassword(), credentialsDto.get().getEncryptionParameter());
+      final InlineLogin inlineLogin = customWebSSOProfileOptions.getInlineLogin();
+      return new InlineLoginBuilder().buildUnpIdpInlineLogin(inlineLogin.getUsername(), inlineLogin.getPassword(), inlineLogin.getEncryptionParameter());
     } else {
       return null;
     }
