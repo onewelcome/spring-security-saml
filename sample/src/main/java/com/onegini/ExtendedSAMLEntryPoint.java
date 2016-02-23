@@ -19,8 +19,8 @@ import org.springframework.security.saml.SAMLEntryPoint;
 import org.springframework.security.saml.context.SAMLMessageContext;
 import org.springframework.security.saml.websso.WebSSOProfileOptions;
 
-import com.onegini.sdk.saml.inlinelogin.InlineLogin;
-import com.onegini.sdk.saml.inlinelogin.InlineLoginCredentials;
+import com.innovation_district.saml.idp.model.inlinelogin.InlineLogin;
+import com.innovation_district.saml.idp.model.inlinelogin.InlineLoginCredentials;
 
 public class ExtendedSAMLEntryPoint extends SAMLEntryPoint {
 

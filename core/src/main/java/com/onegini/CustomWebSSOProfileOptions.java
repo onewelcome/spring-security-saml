@@ -1,6 +1,6 @@
 package com.onegini;
 
-import com.onegini.sdk.saml.inlinelogin.InlineLogin;
+import com.innovation_district.saml.idp.model.inlinelogin.InlineLogin;
 
 public class CustomWebSSOProfileOptions {
 

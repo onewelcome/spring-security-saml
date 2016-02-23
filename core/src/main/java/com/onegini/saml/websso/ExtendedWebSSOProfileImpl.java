@@ -10,18 +10,15 @@ import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.SingleSignOnService;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.schema.XSAny;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.saml.context.SAMLMessageContext;
 import org.springframework.security.saml.websso.WebSSOProfileImpl;
 import org.springframework.security.saml.websso.WebSSOProfileOptions;
 
+import com.innovation_district.saml.idp.model.inlinelogin.InlineLoginCredentials;
 import com.onegini.CustomWebSSOProfileOptions;
-import com.onegini.sdk.saml.inlinelogin.InlineLogin;
 import com.onegini.sdk.saml.inlinelogin.InlineLoginBuilder;
-import com.onegini.sdk.saml.inlinelogin.InlineLoginCredentials;
-import com.onegini.sdk.saml.inlinelogin.InlineLoginCredentialsBuilder;
 
 public class ExtendedWebSSOProfileImpl extends WebSSOProfileImpl {
 
@@ -33,13 +30,13 @@ public class ExtendedWebSSOProfileImpl extends WebSSOProfileImpl {
   protected AuthnRequest getAuthnRequest(final SAMLMessageContext context, final WebSSOProfileOptions options, final AssertionConsumerService assertionConsumer,
                                          final SingleSignOnService bindingService) throws SAMLException, MetadataProviderException {
     final AuthnRequest request = super.getAuthnRequest(context, options, assertionConsumer, bindingService);
-    buildExtensions(request, options);
+    buildExtensions(request);
 
     return request;
   }
 
-  private void buildExtensions(final AuthnRequest request, final WebSSOProfileOptions options) {
-    final XMLObject inlineLoginExtension = buildInlineLoginExtension(request, options);
+  private void buildExtensions(final AuthnRequest request) {
+    final XMLObject inlineLoginExtension = buildInlineLoginExtension();
     if (inlineLoginExtension != null) {
       final Extensions extensions = new ExtensionsBuilder().buildObject();
       extensions.getUnknownXMLObjects().add(inlineLoginExtension);
@@ -47,18 +44,11 @@ public class ExtendedWebSSOProfileImpl extends WebSSOProfileImpl {
     }
   }
 
-  private XMLObject buildInlineLoginExtension(final AuthnRequest request, final WebSSOProfileOptions options) {
+  private XMLObject buildInlineLoginExtension() {
     if (customWebSSOProfileOptions.getInlineLogin() != null) {
-      final InlineLogin inlineLogin = customWebSSOProfileOptions.getInlineLogin();
       final Optional<InlineLoginCredentials> credentialsDto = customWebSSOProfileOptions.getInlineLogin().getCredentials();
-      if (credentialsDto.isPresent()) {
-        final XSAny credentials = new InlineLoginCredentialsBuilder().buildObject(
-            credentialsDto.get().getUsername(), credentialsDto.get().getPassword(), credentialsDto.get().getEncryptionParameter());
-
-        return new InlineLoginBuilder().buildObject(inlineLogin.getIdpType(), credentials);
-      } else {
-        return new InlineLoginBuilder().buildObject(inlineLogin.getIdpType());
-      }
+      return new InlineLoginBuilder().buildUnpIdpInlineLogin(
+          credentialsDto.get().getUsername(), credentialsDto.get().getPassword(), credentialsDto.get().getEncryptionParameter());
     } else {
       return null;
     }
