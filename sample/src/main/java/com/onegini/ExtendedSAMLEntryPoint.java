@@ -59,6 +59,8 @@ public class ExtendedSAMLEntryPoint extends SAMLEntryPoint {
     if (idpType != null && username != null && password != null && encryptionParameter != null &&
         profileOptions.getAuthnContexts() != null && profileOptions.getAuthnContexts().contains(INLINE_LOGIN_AUTHN_CTX)) {
       customWebSSOProfileOptions.setInlineLogin(new InlineLogin(idpType, username, password, encryptionParameter));
+    } else {
+      customWebSSOProfileOptions.setInlineLogin(null);
     }
   }
 
