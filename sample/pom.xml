@@ -4,7 +4,7 @@
   <groupId>com.onegini.saml</groupId>
   <artifactId>spring-security-saml2-sample</artifactId>
   <packaging>war</packaging>
-  <version>9-SNAPSHOT</version>
+  <version>10</version>
 
   <name>Spring Security SAML v2 sample webapp</name>
   <description>Spring Security SAML v2 sample webapp</description>
