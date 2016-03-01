@@ -66,8 +66,14 @@ The `authnContexts` param can be used for other valid authentication context val
 Inline login
 ------------
 
-Inline login request params: `authnContexts=urn:onegini:names:SAML:2.0:ac:classes:InlineLogin&idpType=unp_idp&username=<USERNAME>&password=<PASSWORD_BASE_64>&encryptionParameter=<ENCRYPTION_PARAMETER_BASE_64>`
+Inline login request params: 
 
-Below are examples with encryption using development password encryption key.
+ * `authnContexts=urn:onegini:names:SAML:2.0:ac:classes:InlineLogin`
+ * `idpType=unp_idp`
+ * `username=<USERNAME>`
+ * `password=<PASSWORD_BASE_64>`
+ * `encryptionParameter=<ENCRYPTION_PARAMETER_BASE_64>`
+
+Below is example with encryption using development password encryption key.
 
 Example inline login with passive: http://localhost:8080/spring-security-saml2-sample/?authnContexts=urn:onegini:names:SAML:2.0:ac:classes:InlineLogin&idpType=unp_idp&username=cim-352@x.pl&password=o%2FMCR6uS%2FRAmOse1%2B3ngU6gjf%2F%2Br8h4xWw%3D%3D&encryptionParameter=BVLdWx%2F%2FevkFUt1bH%2F96%2BQ%3D%3D&passive=true
