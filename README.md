@@ -77,3 +77,15 @@ Inline login request params:
 Below is example with encryption using development password encryption key.
 
 Example inline login with passive: http://localhost:8080/spring-security-saml2-sample/?authnContexts=urn:onegini:names:SAML:2.0:ac:classes:InlineLogin&idpType=unp_idp&username=cim-352@x.pl&password=o%2FMCR6uS%2FRAmOse1%2B3ngU6gjf%2F%2Br8h4xWw%3D%3D&encryptionParameter=BVLdWx%2F%2FevkFUt1bH%2F96%2BQ%3D%3D&passive=true
+
+Optional authentication
+-----------------------
+
+Optional authentication request params
+
+* `authnContexts=urn:oasis:names:tc:SAML:2.0:ac:classes:Password&authnContexts=urn:com:onegini:saml:OptionalAuthentication` 
+* `authnContexts=urn:oasis:names:tc:SAML:2.0:ac:classes:Password&authnContexts=urn:com:onegini:saml:OptionalAuthentication&authnContexts=urn:com:onegini:saml:NoRegistration`
+ 
+Example:
+ `http://localhost:8080/spring-security-saml2-sample/?authnContexts=urn:oasis:names:tc:SAML:2.0:ac:classes:Password&authnContexts=urn:com:onegini:saml:OptionalAuthentication&authnContexts=urn:com:onegini:saml:NoRegistration`
+ 
