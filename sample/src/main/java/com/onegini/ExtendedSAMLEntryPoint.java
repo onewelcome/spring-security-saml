@@ -1,5 +1,6 @@
 package com.onegini;
 
+import static com.onegini.SAMLRequestConfigurationParameter.ASSERTION_CONSUMER_SERVICE;
 import static com.onegini.SAMLRequestConfigurationParameter.PARAM_AUTHN_CONTEXTS;
 import static com.onegini.SAMLRequestConfigurationParameter.PARAM_ENCRYPTION_PARAMETER;
 import static com.onegini.SAMLRequestConfigurationParameter.PARAM_IDP_TYPE;
@@ -10,6 +11,8 @@ import static com.onegini.model.InlineLogin.INLINE_LOGIN_AUTHN_CTX;
 
 import java.util.List;
 
+import org.opensaml.saml2.metadata.AssertionConsumerService;
+import org.opensaml.saml2.metadata.SPSSODescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +32,27 @@ public class ExtendedSAMLEntryPoint extends SAMLEntryPoint {
 
   @Override
   protected WebSSOProfileOptions getProfileOptions(final SAMLMessageContext context, final AuthenticationException exception) throws MetadataProviderException {
+
     final HttpServletRequestAdapter inboundMessageTransport = (HttpServletRequestAdapter) context.getInboundMessageTransport();
     final WebSSOProfileOptions profileOptions = super.getProfileOptions(context, exception);
+    setAssertionConsumerServiceIfPresent(inboundMessageTransport, profileOptions, context);
     setPassiveIfPresentInRequest(inboundMessageTransport, profileOptions);
     setAuthContextIfPresentInRequest(inboundMessageTransport, profileOptions);
     setInlineLoginIfPresentInRequest(inboundMessageTransport, profileOptions);
     return profileOptions;
+  }
+
+  private void setAssertionConsumerServiceIfPresent(final HttpServletRequestAdapter inboundMessageTransport, final WebSSOProfileOptions profileOptions,
+                                                    final SAMLMessageContext context) {
+    final SPSSODescriptor localEntityRoleMetadata = (SPSSODescriptor) context.getLocalEntityRoleMetadata();
+    if (inboundMessageTransport.getParameterValue(ASSERTION_CONSUMER_SERVICE) != null) {
+      for (final AssertionConsumerService assertionConsumerService : localEntityRoleMetadata.getAssertionConsumerServices()) {
+        if (assertionConsumerService.getBinding().equals(inboundMessageTransport.getParameterValue(ASSERTION_CONSUMER_SERVICE))) {
+          profileOptions.setAssertionConsumerIndex(assertionConsumerService.getIndex());
+          return;
+        }
+      }
+    }
   }
 
   private void setAuthContextIfPresentInRequest(final HttpServletRequestAdapter inboundMessageTransport, final WebSSOProfileOptions profileOptions) {

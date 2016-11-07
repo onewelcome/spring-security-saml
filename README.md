@@ -88,4 +88,11 @@ Optional authentication request params
  
 Example:
  `http://localhost:8080/spring-security-saml2-sample/?authnContexts=urn:oasis:names:tc:SAML:2.0:ac:classes:Password&authnContexts=urn:com:onegini:saml:OptionalAuthentication&authnContexts=urn:com:onegini:saml:NoRegistration`
- 
+
+
+Artifact binding
+-----------------------
+
+To use artifact binding please pass `assertionBinding` parameter to the url like this:
+
+`http://localhost:8080/spring-security-saml2-sample?assertionBinding=urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact`
