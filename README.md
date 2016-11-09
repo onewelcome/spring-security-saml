@@ -40,9 +40,7 @@ The IdP metadata for http://dev.onegini.me:8990 (docker) is loaded by running th
 
     mvn tomcat7:run -P docker
 
-A different configuration can be loaded via the system property `SAML_SAMPLE_IDP_METADATA_CLASSPATH_RESOURCE`. This resource must refer to a metadata file on 
-the classpath.
-
+Metadata for each of the idp instance is loaded via http (IDP_METADATA_URL property).
 
 Requests preparation
 ====================
@@ -88,4 +86,23 @@ Optional authentication request params
  
 Example:
  `http://localhost:8080/spring-security-saml2-sample/?authnContexts=urn:oasis:names:tc:SAML:2.0:ac:classes:Password&authnContexts=urn:com:onegini:saml:OptionalAuthentication&authnContexts=urn:com:onegini:saml:NoRegistration`
- 
+
+
+Artifact binding
+-----------------------
+
+To be able to send requests with artifact binding, SP needs to support assertion consumer service, it can be checked in SP metadata, eg.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="spring_security_saml" entityID="spring:security:saml">
+   <md:SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+      <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://localhost:8080/spring-security-saml2-sample/saml/SSO" index="0" isDefault="true" />
+      <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="http://localhost:8080/spring-security-saml2-sample/saml/SSO" index="1" />
+   </md:SPSSODescriptor>
+</md:EntityDescriptor>
+
+```
+
+With above metadata, `HTTP-POST` binding will be used by default. To use different assertion consumer service, please pass `assertionBinding` parameter to the url with appropriate protocol binding, eg.:
+
+`http://localhost:8080/spring-security-saml2-sample?assertionBinding=urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact`

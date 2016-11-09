@@ -8,5 +8,6 @@ public class SAMLRequestConfigurationParameter {
   public static final String PARAM_USERNAME = "username";
   public static final String PARAM_PASSWORD = "password";
   public static final String PARAM_ENCRYPTION_PARAMETER = "encryptionParameter";
+  public static final String ASSERTION_CONSUMER_SERVICE = "assertionBinding";
 
 }

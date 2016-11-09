@@ -19,7 +19,7 @@
     <junit.version>4.4</junit.version>
     <slf4j.version>1.6.3</slf4j.version>
     <spring.version>3.1.2.RELEASE</spring.version>
-    <spring-security-saml2-core.version>1.0.5</spring-security-saml2-core.version>
+    <spring-security-saml2-core.version>1.0.6-SNAPSHOT</spring-security-saml2-core.version>
     <spring-security.version>3.1.2.RELEASE</spring-security.version>
     <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
   </properties>
@@ -114,7 +114,7 @@
             <configuration>
               <path>/spring-security-saml2-sample</path>
               <systemProperties>
-                <SAML_SAMPLE_IDP_METADATA_CLASSPATH_RESOURCE>/metadata/dev.onegini.me-docker.xml</SAML_SAMPLE_IDP_METADATA_CLASSPATH_RESOURCE>
+                <IDP_METADATA_URL>http://dev.onegini.me:8990/saml/metadata</IDP_METADATA_URL>
               </systemProperties>
             </configuration>
           </plugin>
@@ -132,7 +132,7 @@
             <configuration>
               <path>/spring-security-saml2-sample</path>
               <systemProperties>
-                <SAML_SAMPLE_IDP_METADATA_CLASSPATH_RESOURCE>/metadata/dev.onegini.me-local.xml</SAML_SAMPLE_IDP_METADATA_CLASSPATH_RESOURCE>
+                <IDP_METADATA_URL>http://dev.onegini.me:8989/saml/metadata</IDP_METADATA_URL>
               </systemProperties>
             </configuration>
           </plugin>
