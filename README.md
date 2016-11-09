@@ -40,9 +40,7 @@ The IdP metadata for http://dev.onegini.me:8990 (docker) is loaded by running th
 
     mvn tomcat7:run -P docker
 
-A different configuration can be loaded via the system property `SAML_SAMPLE_IDP_METADATA_CLASSPATH_RESOURCE`. This resource must refer to a metadata file on 
-the classpath.
-
+Metadata for each of the idp instance is loaded via http (IDP_METADATA_URL property).
 
 Requests preparation
 ====================

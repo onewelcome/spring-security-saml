@@ -131,7 +131,7 @@
         <constructor-arg>
             <list>
                 <bean class="org.opensaml.saml2.metadata.provider.HTTPMetadataProvider">
-                    <constructor-arg value="${IDP_METADATA_URL:http://itest.onegini.megi:8989/saml/metadata}" />
+                    <constructor-arg value="${IDP_METADATA_URL:http://itest.onegini.me:8989/saml/metadata}" />
                     <constructor-arg value="5000" />
                     <property name="parserPool" ref="parserPool"/>
                 </bean>
