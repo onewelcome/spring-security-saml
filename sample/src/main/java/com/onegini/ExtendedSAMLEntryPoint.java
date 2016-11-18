@@ -46,10 +46,14 @@ public class ExtendedSAMLEntryPoint extends SAMLEntryPoint {
                                                     final SAMLMessageContext context) {
     final SPSSODescriptor localEntityRoleMetadata = (SPSSODescriptor) context.getLocalEntityRoleMetadata();
     if (inboundMessageTransport.getParameterValue(ASSERTION_CONSUMER_SERVICE) != null) {
-      for (final AssertionConsumerService assertionConsumerService : localEntityRoleMetadata.getAssertionConsumerServices()) {
-        if (assertionConsumerService.getBinding().equals(inboundMessageTransport.getParameterValue(ASSERTION_CONSUMER_SERVICE))) {
-          profileOptions.setAssertionConsumerIndex(assertionConsumerService.getIndex());
-          return;
+      if (inboundMessageTransport.getParameterValue(ASSERTION_CONSUMER_SERVICE).equals("undefined")) {
+        customWebSSOProfileOptions.setAssertionConsumerServiceDefined(false);
+      } else {
+        for (final AssertionConsumerService assertionConsumerService : localEntityRoleMetadata.getAssertionConsumerServices()) {
+          if (assertionConsumerService.getBinding().equals(inboundMessageTransport.getParameterValue(ASSERTION_CONSUMER_SERVICE))) {
+            profileOptions.setAssertionConsumerIndex(assertionConsumerService.getIndex());
+            return;
+          }
         }
       }
     }
