@@ -130,9 +130,10 @@
     <bean id="metadata" class="org.springframework.security.saml.metadata.CachingMetadataManager">
         <constructor-arg>
             <list>
-                <bean class="org.opensaml.saml2.metadata.provider.HTTPMetadataProvider">
+                <bean class="com.onegini.HTTPMetadataProvider">
                     <constructor-arg value="${IDP_METADATA_URL:http://itest.onegini.me:8989/saml/metadata}" />
                     <constructor-arg value="5000" />
+                    <constructor-arg value="${IDP_METADATA_PING_URL:http://itest.onegini.me:8989/admin}" />
                     <property name="parserPool" ref="parserPool"/>
                 </bean>
             </list>
