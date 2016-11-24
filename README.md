@@ -106,3 +106,7 @@ To be able to send requests with artifact binding, SP needs to support assertion
 With above metadata, `HTTP-POST` binding will be used by default. To use different assertion consumer service, please pass `assertionBinding` parameter to the url with appropriate protocol binding, eg.:
 
 `http://localhost:8080/spring-security-saml2-sample?assertionBinding=urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact`
+
+If you want to send `AuthNRequest` without assertion service defined please pass `undefined` value to `assertionBinding` param, eg.:
+
+`http://localhost:8080/spring-security-saml2-sample?assertionBinding=undefined`

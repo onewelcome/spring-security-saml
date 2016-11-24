@@ -33,6 +33,13 @@ public class ExtendedWebSSOProfileImpl extends WebSSOProfileImpl {
     return request;
   }
 
+  @Override
+  protected void buildReturnAddress(final AuthnRequest request, final AssertionConsumerService service) throws MetadataProviderException {
+    if (customWebSSOProfileOptions.isAssertionConsumerServiceDefined()) {
+      super.buildReturnAddress(request, service);
+    }
+  }
+
   private void buildExtensions(final AuthnRequest request) {
     final XMLObject inlineLoginExtension = buildInlineLoginExtension();
     if (inlineLoginExtension != null) {
