@@ -115,6 +115,7 @@
               <path>/spring-security-saml2-sample</path>
               <systemProperties>
                 <IDP_METADATA_URL>http://dev.onegini.me:8990/saml/metadata</IDP_METADATA_URL>
+                <IDP_METADATA_PING_URL>http://dev.onegini.me:8990/admin</IDP_METADATA_PING_URL>
               </systemProperties>
             </configuration>
           </plugin>
@@ -133,6 +134,7 @@
               <path>/spring-security-saml2-sample</path>
               <systemProperties>
                 <IDP_METADATA_URL>http://dev.onegini.me:8989/saml/metadata</IDP_METADATA_URL>
+                <IDP_METADATA_PING_URL>http://dev.onegini.me:8989/admin</IDP_METADATA_PING_URL>
               </systemProperties>
             </configuration>
           </plugin>
