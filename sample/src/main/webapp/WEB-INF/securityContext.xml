@@ -119,6 +119,18 @@
         <constructor-arg>
             <bean class="org.springframework.security.saml.metadata.MetadataGenerator">
               <property name="entityId" value="spring:security:saml"/>
+                <property name="extendedMetadata">
+                    <bean class="org.springframework.security.saml.metadata.ExtendedMetadata">
+                        <property name="ecpEnabled" value="true"/>
+                    </bean>
+                </property>
+                <property name="bindingsSSO">
+                    <list>
+                        <value>post</value>
+                        <value>artifact</value>
+                        <value>paos</value>
+                    </list>
+                </property>
             </bean>
         </constructor-arg>
     </bean>
@@ -148,8 +160,15 @@
         -->
     </bean>
 
-    <!-- Provider of default SAML Context -->
-    <bean id="contextProvider" class="org.springframework.security.saml.context.SAMLContextProviderImpl"/>
+    <!-- Provider of default SAML Context
+    InResponseToField validation disabled because of time difference between idp.testshib.org and local machine
+    should be enabled before final tests!!
+    -->
+    <bean id="contextProvider" class="org.springframework.security.saml.context.SAMLContextProviderImpl">
+        <property name="storageFactory">
+            <bean class="org.springframework.security.saml.storage.EmptyStorageFactory"/>
+        </property>
+    </bean>
 
     <!-- Processing filter for WebSSO profile messages -->
     <bean id="samlWebSSOProcessingFilter" class="org.springframework.security.saml.SAMLProcessingFilter">
