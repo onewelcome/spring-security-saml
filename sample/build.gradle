@@ -1,6 +1,12 @@
 apply plugin: 'war'
 apply plugin: 'tomcat'
 
+	tomcat {
+		httpPort=8091
+		ajpPort=8093
+		stopPort=8092
+	}
+
 // Do not generate POM for this module
 install.enabled = false
 
@@ -33,6 +39,8 @@ dependencies {
 	def tomcatVersion = '7.0.11'
 	tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
 		"org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
+
+
 	tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
 		exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
 	}
