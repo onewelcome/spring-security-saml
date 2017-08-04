@@ -31,7 +31,7 @@ public class HTTPMetadataProvider extends org.opensaml.saml2.metadata.provider.H
   }
 
   public boolean pingableHost() {
-    log.info("Pinging metadata host {}", getMetadataURI());
+    log.info("Pinging metadata host {}", pingUrl);
     final HttpMethod getMethod = new GetMethod(pingUrl);
     try {
       final int pingHttpResult = createHttpClient().executeMethod(getMethod);
