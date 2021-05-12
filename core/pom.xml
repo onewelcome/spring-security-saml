@@ -35,7 +35,7 @@
     <servlet-api.version>2.5</servlet-api.version>
     <slf4j-api.version>1.6.3</slf4j-api.version>
     <spring.version>3.1.2.RELEASE</spring.version>
-    <spring-security.version>3.1.2.RELEASE</spring-security.version>
+    <spring-security.version>5.2.10.RELEASE</spring-security.version>
     <xalan.version>2.7.2</xalan.version>
     <xml-apis.version>1.4.01</xml-apis.version>
     <xmlunit.version>1.0</xmlunit.version>
